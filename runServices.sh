@@ -9,11 +9,16 @@ then
 fi
 
 # Eval if exist services cloned
-if [ ! -f "./users-service" ] || [! -f "./products-orders-service"]
+if [ ! -d "./users-service" ] || [ ! -d "./products-orders-service" ]
 then
     echo "[ERROR] - Step of clone services failed"
     echo "[INFO] - Please read README.md and complete step 1"
+    exit 1
 fi
 
+echo "Executing docker-compose: "
+
 # Build and instance containers with docker-compose info
-docker-compose up -d --build
+docker-compose -p 'arq2' up -d --build 
+
+echo "Script runServices sucessfull"
