@@ -1,5 +1,8 @@
+# IDEs
 .idea/
 .vscode/
+
+# services
 products-orders-service/
 users-service/
 payments-service/

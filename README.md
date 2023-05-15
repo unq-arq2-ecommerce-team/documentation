@@ -1,8 +1,17 @@
 # Documentacion de los servicios del tp Arquitectura 2
 
+
+## Enunciados
+
 [Entrega 1 - Enunciado del Trabajo Práctico]()
 
 [Entrega 2 - Enunciado del Trabajo Práctico]()
+
+
+## Arquitectura
+
+
+<--- Poner version final --->
 
 
 ## Inicializar servicios
