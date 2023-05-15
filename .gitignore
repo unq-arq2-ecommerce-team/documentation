@@ -1,0 +1,8 @@
+.idea/
+.vscode/
+products-orders-service/
+users-service/
+payments-service/
+notifications-service
+order-orchestrator
+
