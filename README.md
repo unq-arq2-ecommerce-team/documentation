@@ -25,19 +25,43 @@
 
 ### Instrucciones
 
-1) Crear directorio/carpeta que va a contener todos los archivos (nombre a eleccion). Ejemplo:
+1) Clonar el presente repositorio y ejecutar los siguientes pasos dentro de este.
 
-`$> mkdir arq2`
+```git clone https://github.com/unq-arq2-ecommerce-team/documentation.git```
+
+```cd ./documentation```
 
 2) Clonar los siguientes repositorios dentro del directorio creado:
 
 - [Users-service - https://github.com/unq-arq2-ecommerce-team/users-service](https://github.com/unq-arq2-ecommerce-team/users-service)
+
+    ```git clone https://github.com/unq-arq2-ecommerce-team/users-service```
+
 - [Products-orders-service - https://github.com/unq-arq2-ecommerce-team/products-orders-service](https://github.com/unq-arq2-ecommerce-team/products-orders-service)
+
+    ```git clone https://github.com/unq-arq2-ecommerce-team/products-orders-service```
+
 - [Payments-service - https://github.com/unq-arq2-ecommerce-team/payments-service](https://github.com/unq-arq2-ecommerce-team/payments-service)
+
+    ```git clone https://github.com/unq-arq2-ecommerce-team/payments-service```
+
 - [Notifications-service - https://github.com/unq-arq2-ecommerce-team/notifications-service](https://github.com/unq-arq2-ecommerce-team/notifications-service)
+
+    ```git clone https://github.com/unq-arq2-ecommerce-team/notifications-service```
+
 - [Order-orchestrator - https://github.com/unq-arq2-ecommerce-team/order-orchestrator](https://github.com/unq-arq2-ecommerce-team/order-orchestrator)
 
-2) Ejecutar dockercompose
+    ```git clone https://github.com/unq-arq2-ecommerce-team/order-orchestrator```
 
-``$> dockercompose ...`
+
+
+3) Modificar todas las envs de "./<servicio>/resources/local.env" de cada servicio con los datos correspondientes. 
+
+
+
+4) Ejecutar el script runServices.sh que ejecuta el docker-compose.yml
+
+    ```chmod +X ./runServices.sh```
+
+    ```./runServices.sh```
 
