@@ -3,9 +3,9 @@
 
 ## Enunciados
 
-[Entrega 1 - Enunciado del Trabajo Práctico]()
+[Entrega 1 - Enunciado del Trabajo Práctico](https://github.com/unq-arq2-ecommerce-team/documentation/blob/main/enunciados/Arq2%20-%20Trabajo%20practico%20-%20Entrega1.pdf)
 
-[Entrega 2 - Enunciado del Trabajo Práctico]()
+[Entrega 2 - Enunciado del Trabajo Práctico](https://github.com/unq-arq2-ecommerce-team/documentation/blob/main/enunciados/Arq2%20-%20Trabajo%20practico%20-%20Entrega2.pdf)
 
 
 ## Arquitectura
