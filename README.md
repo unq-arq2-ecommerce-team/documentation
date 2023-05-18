@@ -32,7 +32,7 @@
 
 ```cd ./documentation```
 
-2) Clonar los siguientes repositorios dentro del directorio creado:
+2) [OPCIONAL] Clonar los siguientes repositorios dentro del directorio creado:
 
 - [Users-service - https://github.com/unq-arq2-ecommerce-team/users-service](https://github.com/unq-arq2-ecommerce-team/users-service)
 
@@ -56,7 +56,7 @@
 
 
 
-3) Modificar todas las envs de "./<servicio>/resources/local.env" de cada servicio con los datos correspondientes. 
+3) Modificar las envs de "./envs/env-{servicio}.env" de cada servicio con los datos correspondientes. 
 
 Recomendacion: Cambiar en envs "localhost" con "servicio". Ejemplo:
 
@@ -65,9 +65,28 @@ products-orders-service recomendacion al usar docker-compose:
     SELLER_URL_FIND_BY_ID=http://users-service:8081/api/v1/seller/{sellerId}
 ```
 
-4) Ejecutar el script runServices.sh que ejecuta el docker-compose.yml
+NOTA: Tambien agregar las credenciales de mongo con su db correspondiente.
+
+4) Ejecutar el script runServices.sh que ejecuta el docker-compose.yml (si no se ejecuto el paso 2, se pueden pasar el flag -c o --clone para clonar todos los repos, el script borra los directorios clonados si se selecciona esa opcion)
+
+Dar permisos al script:
 
     ```chmod +X ./runServices.sh```
 
-    ```./runServices.sh```
+Sin limpiar ni clonar repos
+
+    ```./runServices.sh``` 
+
+Limpiar y clonar repos
+
+    ```./runServices.sh --clone```
+
+
+## RunServices Script Args:
+
+|Flag        | Valor    | Descripcion|
+|------------|----------|------------|
+| -c --clone |   -      | Limpia y clona repositorios|
+| -u --user  |   user_mongo     | (No disponible) usuario de mongo |
+| -p --pass  |   pass_mongo     | (No disponible) contraseña de usuario mongo|
 
