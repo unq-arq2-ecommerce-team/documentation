@@ -1,15 +1,31 @@
 #!/bin/bash
 
+# Args:
+#   * -c or --clone = for clean and clone services repositories
+#       example: --clone
+#   * -u or --user = for add user mongo credentials user
+#       example: -u cassanojoseluis
+#   * -p or --pass = for add user mongo credentials password
+#       example: -p sarasadfas
+
+
 # var para clonar repositorios
 cloneRepos=false
+mongoUser=""
+mongoPass=""
 
-# get args
-for arg in "$@"
-do
-  if [ "$arg" == "--clone" ]; then
-    cloneRepos=true
-  fi
+#Read the argument values 
+while [[ "$#" -gt 0 ]]
+  do
+    case $1 in
+      -c|--clone) cloneRepos=true; shift;;
+      -u|--user) mongoUser="$2"; shift;;
+      -p|--pass) mongoPass="$2"; shift;;
+    esac
+    shift
 done
+
+# TODO: update envs somehow in envs with credentials (maybe add line with MONGO_URL)
 
 echo "[INFO] - cloneRepos with value: $cloneRepos"
 # Evaluates
