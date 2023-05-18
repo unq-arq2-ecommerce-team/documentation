@@ -6,5 +6,5 @@
 products-orders-service/
 users-service/
 payments-service/
-notifications-service
-order-orchestrator
+notifications-service/
+order-orchestrator/
