@@ -10,8 +10,7 @@ fi
 
 
 # Eval if exist services cloned
-# || [ ! -d "./payment-service" ] || [ ! -d "./notification-service" ] 
-if [ ! -d "./users-service" ] || [ ! -d "./products-orders-service" ] || [ ! -d "./order-orchestrator" ] 
+if [ ! -d "./users-service" ] || [ ! -d "./products-orders-service" ] || [ ! -d "./order-orchestrator" ] || [ ! -d "./payment-service" ] || [ ! -d "./notification-service" ] 
 then
     echo "[ERROR] - Step of clone services failed"
     echo "[INFO] - Please read README.md and complete step 1"
