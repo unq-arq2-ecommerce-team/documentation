@@ -57,6 +57,8 @@
 
 3) Modificar todas las envs de "./<servicio>/resources/local.env" de cada servicio con los datos correspondientes. 
 
+Recomendacion: Cambiar en envs "localhost" con "servicio". Ejemplo:
+
 products-orders-service recomendacion al usar docker-compose:
 ```
     SELLER_URL_FIND_BY_ID=http://users-service:8081/api/v1/seller/{sellerId}
