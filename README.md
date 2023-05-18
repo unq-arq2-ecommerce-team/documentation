@@ -19,6 +19,7 @@
 ### Prerequisitos:
 
 - Bash
+- Git
 - Docker
 - Docker-compose
 
