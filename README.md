@@ -22,9 +22,38 @@
 - Git
 - Docker
 - Docker-compose
+- MongoCLI y DB (opcional) 
 
 
 ### Instrucciones
+
+0) Personalizar mongo db ejecutar (opcional sino pedir url y credenciales de mongo atlas)
+
+```js
+db.createCollection("counters")
+db.getCollection("counters").insertMany([
+{
+    "_id" : "customers",
+    "seq" : NumberLong(0)
+},
+{
+    "_id" : "sellers",
+    "seq" : NumberLong(0)
+},
+{
+    "_id" : "orders",
+    "seq" : NumberLong(0)
+},
+{
+    "_id" : "products",
+    "seq" : NumberLong(0)
+}])
+
+db.createCollection("customer")
+db.createCollection("sellers")
+db.createCollection("products")
+db.createCollection("orders")
+```
 
 1) Clonar el presente repositorio y ejecutar los siguientes pasos dentro de este.
 
