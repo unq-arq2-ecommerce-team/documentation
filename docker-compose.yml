@@ -27,6 +27,8 @@ services:
       - 8000:8000
     env_file:
       - ./envs/env-notifications-service.env
+    depends_on:
+      - users-service
   order-orchestrator:
     build: ./order-orchestrator/
     ports:
@@ -36,3 +38,5 @@ services:
     depends_on:
       - users-service
       - products-orders-service
+      - notifications-service
+      - payments-service
