@@ -43,18 +43,22 @@ if [ "$cloneRepos" = true ] ; then
     rm -rf ./users-service
     rm -rf ./products-orders-service
     rm -rf ./order-orchestrator
+    rm -rf ./payments-service
+    rm -rf ./notifications-service
     echo '[INFO] - Clean repos done'
 
     echo '[INFO] - Cloning repos'
     git clone https://github.com/unq-arq2-ecommerce-team/users-service
     git clone https://github.com/unq-arq2-ecommerce-team/products-orders-service
     git clone https://github.com/unq-arq2-ecommerce-team/order-orchestrator
+    git clone https://github.com/unq-arq2-ecommerce-team/payments-service
+    git clone https://github.com/unq-arq2-ecommerce-team/notifications-service
     echo '[INFO] - Cloning repos done'
 fi
 
 
 # Eval if exist services cloned
-if [ ! -d "./users-service" ] || [ ! -d "./products-orders-service" ] || [ ! -d "./order-orchestrator" ] # || [ ! -d "./payment-service" ] || [ ! -d "./notification-service" ] 
+if [ ! -d "./users-service" ] || [ ! -d "./products-orders-service" ] || [ ! -d "./order-orchestrator" ] || [ ! -d "./payments-service" ] || [ ! -d "./notifications-service" ]
 then
     echo "[ERROR] - Step of clone services failed"
     echo "[INFO] - Please read README.md and complete step 1"

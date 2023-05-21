@@ -15,6 +15,18 @@ services:
       - ./envs/env-products-orders-service.env
     depends_on:
       - users-service
+  payments-service:
+    build: ./payments-service/
+    ports:
+      - 8083:8083
+    env_file:
+      - ./envs/env-payments-service.env
+  notifications-service:
+    build: ./notifications-service/
+    ports:
+      - 8000:8000
+    env_file:
+      - ./envs/env-notifications-service.env
   order-orchestrator:
     build: ./order-orchestrator/
     ports:
