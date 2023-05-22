@@ -1,4 +1,4 @@
-# Documentacion de los servicios del tp Arquitectura 2
+# Documentación de los servicios del TP Arquitectura 2
 
 
 ## Enunciados
@@ -8,11 +8,21 @@
 [Entrega 2 - Enunciado del Trabajo Práctico](https://github.com/unq-arq2-ecommerce-team/documentation/blob/main/enunciados/Arq2%20-%20Trabajo%20practico%20-%20Entrega2.pdf)
 
 
-## Arquitectura
+## Diagramas y documentos
 
 
-<--- Poner version final --->
+[Ir a sección de diagramas y documentos](https://github.com/unq-arq2-ecommerce-team/documentation/blob/main/docs)
 
+
+## Tests de integración
+
+1) Ejecutar guia de inicializar servicios exitosamente.
+
+2) Descargar [Coleccion de Postman](https://github.com/unq-arq2-ecommerce-team/documentation/blob/main/integrations-tests)
+
+3) Importarlo desde postman
+
+4) Ejecutar los request y validar que pasen sus tests
 
 ## Inicializar servicios
 
@@ -61,7 +71,7 @@ db.createCollection("orders")
 
 ```cd ./documentation```
 
-2) [OPCIONAL] Clonar los siguientes repositorios dentro del directorio creado:
+2) [OPCIONAL - si se ejecuta script runServices.sh] Clonar los siguientes repositorios dentro del directorio creado:
 
 - [Users-service - https://github.com/unq-arq2-ecommerce-team/users-service](https://github.com/unq-arq2-ecommerce-team/users-service)
 
@@ -89,14 +99,15 @@ db.createCollection("orders")
 
 Recomendacion: Cambiar en envs "localhost" con "servicio". Ejemplo:
 
-products-orders-service recomendacion al usar docker-compose:
+"products-orders-service" recomendacion al usar docker-compose:
+
 ```
     SELLER_URL_FIND_BY_ID=http://users-service:8081/api/v1/seller/{sellerId}
 ```
 
 NOTA: Tambien agregar las credenciales de mongo con su db correspondiente.
 
-4) Ejecutar el script runServices.sh que ejecuta el docker-compose.yml (si no se ejecuto el paso 2, se pueden pasar el flag -c o --clone para clonar todos los repos, el script borra los directorios clonados si se selecciona esa opcion)
+4) Ejecutar el script `runServices.sh` que ejecuta el docker-compose.yml (si no se ejecuto el paso 2, se pueden pasar el flag -c o --clone para clonar todos los repos, el script borra los directorios clonados si se selecciona esa opcion). Ir a la seccion de "RunServices Script Args" para ver que flags son validos.
 
 Dar permisos al script:
 
