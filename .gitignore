@@ -9,5 +9,3 @@ payments-service/
 notifications-service/
 order-orchestrator/
 
-# env files (por si tienen credenciales)
-envs/
