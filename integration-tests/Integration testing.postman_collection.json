@@ -1,0 +1,675 @@
+{
+	"info": {
+		"_postman_id": "4c6050c9-400b-4a07-9292-19846287d407",
+		"name": "Integration testing",
+		"description": "# ⛓️ Get started here\n\nPostman allows you to test your APIs using simple Javascript code. You can evaluate your response body, headers, cookies, and more using the [ChaiJS BDD](https://www.chaijs.com/api/bdd/) syntax.\n\nThis template guides you through the process of setting up an integration test to ensure that all individual components of an API function together seamlessly.\n\nThe API under test in this collection includes three endpoints for registering and receiving a token, accessing your unique generated name, and unregistering a token:\n\n- POST `/register`\n- POST `/unregister`\n- GET `/my-name`\n    \n\nBy setting up requests in the order of the operation, we can test the flow of data to and from the endpoints and ensure they work together as expected. We also verify that the data persists between requests on the back end.\n\n## 🔖 **How to use this template**\n\n**Step 1:** Check out the requests' documentation to learn more about -\n\n- what each request is meant to do.\n- the tests we've added against each one.\n    \n\n**Step 2:** Run this collection by clicking on \"Run\".\n\n<img src=\"https://content.pstmn.io/84019b0f-69c8-4c5f-98b9-2c90a6f9a0b1/Y29sbGVjdGlvbi1ydW5uZXItYnV0dG9uLmpwZWc=\" alt=\"\" height=\"103\" width=\"266\">\n\n**Step 3:** To customize this template, replace the request URLs with your API endpoints and add or edit the tests if needed.\n\n## ℹ️ Resources\n\n[Scripting in Postman](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/)\n\n[Test script examples](https://learning.postman.com/docs/writing-scripts/script-references/test-examples/)\n\n[Postman Sandbox API reference](https://learning.postman.com/docs/sending-requests/grpc/postman-sandbox-api/#writing-assertions)\n\n[Using the Collection Runner](https://learning.postman.com/docs/collections/running-collections/intro-to-collection-runs/)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27552469",
+		"_collection_link": "https://crimson-shuttle-173554.postman.co/workspace/unq-arq2-ecommerce-team-tests~e1a3e67a-07bf-4030-a4be-fce6401c9b7e/collection/12280460-4c6050c9-400b-4a07-9292-19846287d407?action=share&creator=27552469&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Order creation",
+			"item": [
+				{
+					"name": "Create order successful",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response code is 200 and body has a uuid\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('id');",
+									"    pm.expect(jsonData.id).to.satisfy(Number.isInteger);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customerId\": 3,\n    \"productId\": 3,\n    \"deliveryDate\": \"2090-04-20T15:04:05.000Z\",\n    \"deliveryAddress\": {\n        \"street\": \"falsa\",\n        \"city\": \"CABA\",\n        \"state\": \"Buenos Aires\",\n        \"country\": \"Argentina\",\n        \"observation\": \"\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/api/v1/order",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"order"
+							]
+						},
+						"description": "This returns a `token` that you can use to retrieve information later on.\n\nWe have included a test to confirm if a token is returned. We have also added test scripts to copy the token to the `token` collection variable. This makes it easy for us to reuse this token in other requests in the collection."
+					},
+					"response": []
+				},
+				{
+					"name": "Create order failed (no stock)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response code is 406 with error message \", function () {",
+									"    pm.response.to.have.status(406);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('Message');",
+									"    pm.expect(jsonData).to.have.property('Description');",
+									"    pm.expect(jsonData.Message).to.contain(\"have no stock\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customerId\": 3,\n    \"productId\": 4,\n    \"deliveryDate\": \"2090-04-20T15:04:05.000Z\",\n    \"deliveryAddress\": {\n        \"street\": \"falsa\",\n        \"city\": \"CABA\",\n        \"state\": \"Buenos Aires\",\n        \"country\": \"Argentina\",\n        \"observation\": \"\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/api/v1/order",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"order"
+							]
+						},
+						"description": "This returns a `token` that you can use to retrieve information later on.\n\nWe have included a test to confirm if a token is returned. We have also added test scripts to copy the token to the `token` collection variable. This makes it easy for us to reuse this token in other requests in the collection."
+					},
+					"response": []
+				},
+				{
+					"name": "Create order failed(invalid json structure)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response code is 400 and body has a uuid\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('Message');",
+									"    pm.expect(jsonData).to.have.property('Description');",
+									"    pm.expect(jsonData.Message).to.eql(\"invalid json body order create req\");",
+									"    pm.expect(jsonData.Description).to.eql(\"Key: 'OrderCreateReq.DeliveryAddress.Street' Error:Field validation for 'Street' failed on the 'required' tag\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customerId\": 3,\n    \"productId\": 3,\n    \"deliveryDate\":  \"2090-04-20T15:04:05.000Z\",\n    \"deliveryAddress\": {\n        \"city\": \"CABA\",\n        \"state\": \"Buenos Aires\",\n        \"country\": \"Argentina\",\n        \"observation\": \"nothing\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/api/v1/order",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"order"
+							]
+						},
+						"description": "This returns a `token` that you can use to retrieve information later on.\n\nWe have included a test to confirm if a token is returned. We have also added test scripts to copy the token to the `token` collection variable. This makes it easy for us to reuse this token in other requests in the collection."
+					},
+					"response": []
+				},
+				{
+					"name": "Create order failed(customer does not exist)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response code is 400 and body has a uuid\", function () {",
+									"    pm.response.to.have.status(404);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('Message');",
+									"    pm.expect(jsonData).to.have.property('Description');",
+									"    pm.expect(jsonData.Message).to.eql(\"customer with id 1 not found\");",
+									"    pm.expect(jsonData.Description).to.eql(\"\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customerId\": 1,\n    \"productId\": 3,\n    \"deliveryDate\":  \"2090-04-20T15:04:05.000Z\",\n    \"deliveryAddress\": {\n        \"street\": \"falsa\",\n        \"city\": \"CABA\",\n        \"state\": \"Buenos Aires\",\n        \"country\": \"Argentina\",\n        \"observation\": \"nothing\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/api/v1/order",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"order"
+							]
+						},
+						"description": "This returns a `token` that you can use to retrieve information later on.\n\nWe have included a test to confirm if a token is returned. We have also added test scripts to copy the token to the `token` collection variable. This makes it easy for us to reuse this token in other requests in the collection."
+					},
+					"response": []
+				},
+				{
+					"name": "Create order failed(product does not exist)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response code is 400 and body has a uuid\", function () {",
+									"    pm.response.to.have.status(404);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('Message');",
+									"    pm.expect(jsonData).to.have.property('Description');",
+									"    pm.expect(jsonData.Message).to.eql(\"product with id 1 not found\");",
+									"    pm.expect(jsonData.Description).to.eql(\"\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customerId\": 3,\n    \"productId\": 1,\n    \"deliveryDate\":  \"2090-04-20T15:04:05.000Z\",\n    \"deliveryAddress\": {\n        \"street\": \"falsa\",\n        \"city\": \"CABA\",\n        \"state\": \"Buenos Aires\",\n        \"country\": \"Argentina\",\n        \"observation\": \"nothing\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/api/v1/order",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"order"
+							]
+						},
+						"description": "This returns a `token` that you can use to retrieve information later on.\n\nWe have included a test to confirm if a token is returned. We have also added test scripts to copy the token to the `token` collection variable. This makes it easy for us to reuse this token in other requests in the collection."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order payment",
+			"item": [
+				{
+					"name": "Pay order successful",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response code is 200 and body has a uuid\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"method\": {\n        \"type\": \"creditCard\",\n        \"details\": {\n            \"card_number\": \"1234123412341234\",\n            \"expiration_date\": \"01/2030\",\n            \"cvv\": \"999\",\n            \"holder_name\": \"Pepe Martinez\"\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/api/v1/order/3/pay",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"order",
+								"3",
+								"pay"
+							]
+						},
+						"description": "This returns a `token` that you can use to retrieve information later on.\n\nWe have included a test to confirm if a token is returned. We have also added test scripts to copy the token to the `token` collection variable. This makes it easy for us to reuse this token in other requests in the collection."
+					},
+					"response": []
+				},
+				{
+					"name": "Pay order failed( not int id)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response code is 400 and body has a uuid\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('Message');",
+									"    pm.expect(jsonData).to.have.property('Description');",
+									"    pm.expect(jsonData.Message).to.eql(\"invalid path param orderId as positive int64\");",
+									"    pm.expect(jsonData.Description).to.eql(\"\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"method\": {\n        \"type\": \"creditCard\",\n        \"details\": {\n            \"card_number\": \"1234123412341234\",\n            \"expiration_date\": \"01/2030\",\n            \"cvv\": \"999\",\n            \"holder_name\": \"Pepe Martinez\"\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/api/v1/order/asd/pay",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"order",
+								"asd",
+								"pay"
+							]
+						},
+						"description": "This returns a `token` that you can use to retrieve information later on.\n\nWe have included a test to confirm if a token is returned. We have also added test scripts to copy the token to the `token` collection variable. This makes it easy for us to reuse this token in other requests in the collection."
+					},
+					"response": []
+				},
+				{
+					"name": "Pay order failed(wrong body structure)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response code is 400 and body has a uuid\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('Message');",
+									"    pm.expect(jsonData).to.have.property('Description');",
+									"    pm.expect(jsonData.Message).to.eql(\"invalid json body order payment req\");",
+									"    pm.expect(jsonData.Description).to.eql(\"Key: 'OrderPaymentReq.Method.Details.ExpirationDate' Error:Field validation for 'ExpirationDate' failed on the 'len' tag\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"method\": {\n        \"type\": \"creditCard\",\n        \"details\": {\n            \"card_number\": \"1234123412341234\",\n            \"expiration_date\": \"2030\",\n            \"cvv\": \"999\",\n            \"holder_name\": \"Pepe Martinez\"\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/api/v1/order/123/pay",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"order",
+								"123",
+								"pay"
+							]
+						},
+						"description": "This returns a `token` that you can use to retrieve information later on.\n\nWe have included a test to confirm if a token is returned. We have also added test scripts to copy the token to the `token` collection variable. This makes it easy for us to reuse this token in other requests in the collection."
+					},
+					"response": []
+				},
+				{
+					"name": "Pay order failed(order not found)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response code is 400 and body has a uuid\", function () {",
+									"    pm.response.to.have.status(404);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('Message');",
+									"    pm.expect(jsonData).to.have.property('Description');",
+									"    pm.expect(jsonData.Message).to.eql(\"order with id 99999999999999 not found\");",
+									"    pm.expect(jsonData.Description).to.eql(\"\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"method\": {\n        \"type\": \"creditCard\",\n        \"details\": {\n            \"card_number\": \"1234123412341234\",\n            \"expiration_date\": \"02/2030\",\n            \"cvv\": \"999\",\n            \"holder_name\": \"Pepe Martinez\"\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/api/v1/order/99999999999999/pay",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"order",
+								"99999999999999",
+								"pay"
+							]
+						},
+						"description": "This returns a `token` that you can use to retrieve information later on.\n\nWe have included a test to confirm if a token is returned. We have also added test scripts to copy the token to the `token` collection variable. This makes it easy for us to reuse this token in other requests in the collection."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order delivered",
+			"item": [
+				{
+					"name": "Deliver order successful",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response code is 200 and body has a uuid\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/api/v1/order/123/delivered",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"order",
+								"123",
+								"delivered"
+							]
+						},
+						"description": "This returns a `token` that you can use to retrieve information later on.\n\nWe have included a test to confirm if a token is returned. We have also added test scripts to copy the token to the `token` collection variable. This makes it easy for us to reuse this token in other requests in the collection."
+					},
+					"response": []
+				},
+				{
+					"name": "Deliver order failed(order id is not int)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response code is 400 and body has a uuid\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('Message');",
+									"    pm.expect(jsonData).to.have.property('Description');",
+									"    pm.expect(jsonData.Message).to.eql(\"invalid path param orderId as positive int64\");",
+									"    pm.expect(jsonData.Description).to.eql(\"\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/api/v1/order/asd/delivered",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"order",
+								"asd",
+								"delivered"
+							]
+						},
+						"description": "This returns a `token` that you can use to retrieve information later on.\n\nWe have included a test to confirm if a token is returned. We have also added test scripts to copy the token to the `token` collection variable. This makes it easy for us to reuse this token in other requests in the collection."
+					},
+					"response": []
+				},
+				{
+					"name": "Deliver order failed(order not found)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response code is 400 and body has a uuid\", function () {",
+									"    pm.response.to.have.status(404);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('Message');",
+									"    pm.expect(jsonData).to.have.property('Description');",
+									"    pm.expect(jsonData.Message).to.eql(\"order with id 123 not found\");",
+									"    pm.expect(jsonData.Description).to.eql(\"\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/api/v1/order/123/delivered",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"order",
+								"123",
+								"delivered"
+							]
+						},
+						"description": "This returns a `token` that you can use to retrieve information later on.\n\nWe have included a test to confirm if a token is returned. We have also added test scripts to copy the token to the `token` collection variable. This makes it easy for us to reuse this token in other requests in the collection."
+					},
+					"response": []
+				},
+				{
+					"name": "Deliver order failed(order in bad state)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response code is 400 and body has a uuid\", function () {",
+									"    pm.response.to.have.status(406);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('Message');",
+									"    pm.expect(jsonData).to.have.property('Description');",
+									"    pm.expect(jsonData.Message).to.eql(\"invalid transition state for order with id 15\");",
+									"    pm.expect(jsonData.Description).to.eql(\"\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customerId\": 1,\n    \"productId\": -1,\n    \"deliveryDate\":  \"2090-04-20T15:04:05.000Z\",\n    \"address\": {\n        \"city\": \"CABA\",\n        \"state\": \"Buenos Aires\",\n        \"country\": \"Argentina\",\n        \"observation\": \"nothing\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/api/v1/order/15/delivered",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"order",
+								"15",
+								"delivered"
+							]
+						},
+						"description": "This returns a `token` that you can use to retrieve information later on.\n\nWe have included a test to confirm if a token is returned. We have also added test scripts to copy the token to the `token` collection variable. This makes it easy for us to reuse this token in other requests in the collection."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "baseUrl",
+			"value": "https://postman-integration-testing.glitch.me/"
+		}
+	]
+}
