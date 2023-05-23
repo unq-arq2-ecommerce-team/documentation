@@ -71,7 +71,7 @@ db.createCollection("orders")
 
 ```cd ./documentation```
 
-2) [OPCIONAL - si se ejecuta script runServices.sh] Clonar los siguientes repositorios dentro del directorio creado:
+2) Clonar los siguientes repositorios dentro del directorio creado [OPCIONAL - Si se ejecuta mas adelante el script "runServices.sh"]: 
 
 - [Users-service - https://github.com/unq-arq2-ecommerce-team/users-service](https://github.com/unq-arq2-ecommerce-team/users-service)
 
