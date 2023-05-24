@@ -18,7 +18,7 @@
 
 1) Ejecutar guia de inicializar servicios exitosamente.
 
-2) Descargar [Coleccion de Postman](https://github.com/unq-arq2-ecommerce-team/documentation/blob/main/integrations-tests)
+2) Descargar [Coleccion de Postman](https://github.com/unq-arq2-ecommerce-team/documentation/tree/main/integration-tests)
 
 3) Importarlo desde postman
 
